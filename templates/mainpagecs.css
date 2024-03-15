@@ -1,0 +1,23 @@
+body {
+    background-color: khaki
+}
+
+.nav-bar {
+    background-color: rgb(35, 35, 35);
+    margin-right: 90%;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding-bottom: 40%;
+}
+
+.sidebar-link:hover {
+    color: rgb(180, 180, 180);
+    transition: .5s;
+}
+
+.sidebar-link {
+    padding: 15px;
+    list-style: none;
+    text-decoration: none;
+    color: rgb(120, 120, 120);
+}
