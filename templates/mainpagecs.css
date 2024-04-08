@@ -3,11 +3,13 @@ body {
 }
 
 .nav-bar {
+    display: inline-flex;
     background-color: rgb(35, 35, 35);
     margin-right: 90%;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    padding-bottom: 40%;
+    padding-bottom: 10%;
+    box-shadow: 11px 12px 1px 1px rgba(60, 60, 255, .2);
 }
 
 .sidebar-link:hover {
@@ -20,4 +22,9 @@ body {
     list-style: none;
     text-decoration: none;
     color: rgb(120, 120, 120);
+}
+
+li {
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
