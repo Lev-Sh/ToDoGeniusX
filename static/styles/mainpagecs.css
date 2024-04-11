@@ -1,0 +1,37 @@
+body {
+    background-color: rgb(255, 246, 182)
+}
+
+.log-nav {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+    background-color: rgb(35, 35, 35);
+    color: #999;
+    padding: 25px;
+    border-radius: 15px;
+    width: 15%;
+    flex-wrap: wrap;
+    flex-shrink: 5;
+}
+
+.login-a {
+    text-decoration: none;
+    color: #999;
+    padding-inline: 15px;
+}
+
+.reg-a {
+    text-decoration: none;
+    color: #999;
+    padding-inline: 15px;
+}
+
+.logn:hover {
+    color: #CCC;
+    transition: .5s;
+    cursor: context-menu;
+}
