@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ title }}</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}">
 
 </head>
 <body>
 <h1 class="text-center">Welcome, new user!</h1>
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
 </body>
 </html>
