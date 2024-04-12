@@ -5,6 +5,8 @@ from wtforms import EmailField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '.5bB@yqEQF26ZuHcM:/#'
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -25,6 +27,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Войти')
+
 
 
 @app.route('/')
