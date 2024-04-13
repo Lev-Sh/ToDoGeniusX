@@ -1,8 +1,10 @@
  {% extends "login/baselogin.html" %} {% block content %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}">
 <div class="allpage">
-    <h1 class="titleh">{{title}}</h1>
+
+    <h1>{{title}}</h1>
     <div class="logincontainer">
+
         <form action="" method="post">
             {{ form.hidden_tag() }}
             <p>
@@ -25,5 +27,4 @@
         </form>
     </div>
 </div>
-
 {% endblock %}

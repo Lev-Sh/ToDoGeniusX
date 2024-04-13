@@ -11,27 +11,49 @@ body {
     margin: 10px;
     background-color: rgb(35, 35, 35);
     color: #999;
-    padding: 25px;
-    border-radius: 15px;
+    padding: 15px;
+    border-radius: 11px;
     width: 15%;
     flex-wrap: wrap;
     flex-shrink: 5;
+    justify-content: space-around;
 }
 
 .login-a {
+    background-color: rgb(81, 81, 81);
     text-decoration: none;
-    color: #999;
-    padding-inline: 15px;
+    color: wheat;
+    padding-inline: 20px;
 }
 
 .reg-a {
+    background-color: rgb(81, 81, 81);
     text-decoration: none;
-    color: #999;
-    padding-inline: 15px;
+    color: wheat;
+    padding-inline: 20px;
+}
+
+.logn {
+    transition: .5s;
+    border-radius: 3px;
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: auto;
 }
 
 .logn:hover {
     color: #CCC;
     transition: .5s;
     cursor: context-menu;
+    box-shadow: 5px 5px black;
+}
+
+.bg-blue-500 {
+    background-color: wheat;
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    justify-content: center;
+    text-align: center;
 }

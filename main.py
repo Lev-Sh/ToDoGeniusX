@@ -56,7 +56,7 @@ def signup():
 
         return redirect('/')
 
-    return render_template('login/login.html', form=form, title='Регистрация')
+    return render_template('signup/signuph.html', form=form, title='Регистрация')
 
 
 @app.route('/login', methods=['GET', 'POST'])
