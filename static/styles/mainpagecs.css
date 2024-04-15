@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(255, 246, 182)
+    background-color: rgb(240, 235, 216)
 }
 
 .log-nav {
@@ -9,7 +9,7 @@ body {
     right: 0;
     top: 0;
     margin: 10px;
-    background-color: rgb(35, 35, 35);
+    background-color: rgb(116, 140, 171);
     color: #999;
     padding: 15px;
     border-radius: 11px;
@@ -17,19 +17,20 @@ body {
     flex-wrap: wrap;
     flex-shrink: 5;
     justify-content: space-around;
+    box-shadow: 5px 5px rgb(29, 45, 68);
 }
 
 .login-a {
-    background-color: rgb(81, 81, 81);
+    background-color: rgb(62, 92, 118);
     text-decoration: none;
-    color: wheat;
+    color: rgb(255, 218, 185);
     padding-inline: 20px;
 }
 
 .reg-a {
-    background-color: rgb(81, 81, 81);
+    background-color: rgb(62, 92, 118);
     text-decoration: none;
-    color: wheat;
+    color: rgb(255, 218, 185);
     padding-inline: 20px;
 }
 
@@ -46,7 +47,7 @@ body {
     color: #CCC;
     transition: .5s;
     cursor: context-menu;
-    box-shadow: 5px 5px black;
+    box-shadow: 5px 5px rgb(29, 45, 68);
 }
 
 .bg-blue-500 {
