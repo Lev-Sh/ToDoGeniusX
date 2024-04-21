@@ -1,5 +1,6 @@
 import hashlib
 import bcrypt
+from django.http import JsonResponse
 
 from flask import Flask, render_template, redirect
 from flask_login import LoginManager, login_user, current_user
@@ -24,6 +25,20 @@ def load_user(user_id):
 @app.route('/')
 def index():
     return render_template(f"mainpage/mainpage.html", title="ToDoGenius")
+
+
+def add_item_to_database(request):
+    if request.method == 'POST':
+        nickname = request.POST.get('nickname')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        hashed_password = request.POST.get('hashed')
+        # Add the item to the database (example)
+        item = User(nickname=nickname, email=email, password=password, hashed_password=hashed_password)
+        item.save()
+
+        return JsonResponse({'message': 'Item added successfully'}, status=200)
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
