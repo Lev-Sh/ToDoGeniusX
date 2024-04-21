@@ -1,5 +1,6 @@
 import hashlib
 import bcrypt
+import sqlalchemy.exc
 
 from flask import Flask, render_template, redirect
 from flask_login import LoginManager, login_user, current_user
@@ -48,13 +49,14 @@ def signup():
         user.email = form.email.data
         user.hashed_password = hashed_pass
         user.salt = salt
-
-        session.add(user)
-        session.commit()
-
-        login_user(user, remember=form.remember_me.data)
-
-        return redirect('/')
+        try:
+            session.add(user)
+            session.commit()
+            login_user(user, remember=form.remember_me.data)
+            return redirect('/')
+        except sqlalchemy.exc.IntegrityError:
+            return render_template('signup/signuph.html', form=form, title='Регистрация',
+                                   message='Данная электронная почта уже используется')
 
     return render_template('signup/signuph.html', form=form, title='Регистрация')
 
@@ -66,11 +68,12 @@ def login():
         session = create_session()
         password = form.password.data
         user = session.query(User).filter(User.email == form.email.data).first()
-        salt = user.salt
-        if hashlib.md5((password + salt.decode()).encode()).digest() == user.hashed_password:
-            login_user(user, remember=form.remember_me.data)
-            return redirect('/')
-        return render_template('login/login.html', message='Введён неправильный пароль',
+        if user:
+            salt = user.salt
+            if hashlib.md5((password + salt.decode()).encode()).digest() == user.hashed_password:
+                login_user(user, remember=form.remember_me.data)
+                return redirect('/')
+        return render_template('login/login.html', message='Введён неправильный логин или пароль.',
                                title='Авторизация', form=form)
     return render_template('login/login.html', title='Авторизация', form=form)
 
@@ -78,4 +81,4 @@ def login():
 if __name__ == '__main__':
     global_init('db/users.db')
 
-    app.run('127.0.0.1', 8080)
+    app.run('127.0.0.1', 8080, debug=True)
