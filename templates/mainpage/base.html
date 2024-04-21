@@ -16,44 +16,75 @@
 
 <body>
 
-    <div id="draggable" class="bg-blue-500 w-20 h-20 absolute cursor-move">Task 1
-    </div>
     <h2 class="text-center ">HELLO</h2>
     <div class="log-nav ">
         <a class="login-a logn" href="/login">Login</a>
         <a class="reg-a logn" href="/signup">Sign Up</a>
     </div>
-  {% block content %}{% endblock %}
+    <div class="create"><button id="create_btn" class="create_btn">+</button></div>
+    {% block content %}{% endblock %}
 
 </body>
 <script>
-var draggable = document.getElementById('draggable');
-draggable.onmousedown = function(event) {
-    draggable.style.position = 'absolute';
-    draggable.style.zIndex = 1000;
+    var draggableElements = document.getElementsByClassName('draggable');
+    let initialX, initialY, currentElement;
 
-    function moveAt(pageX, pageY) {
-        draggable.style.left = pageX - draggable.offsetWidth / 2 + 'px';
-        draggable.style.top = pageY - draggable.offsetHeight / 2 + 'px';
+    document.getElementById("create_btn").onclick = function() {
+        create_note()
+    }
+    Array.from(draggableElements).forEach(element => {
+        element.addEventListener('mousedown', startDragging);
+        element.addEventListener('mouseup', stopDragging);
+    });
+
+    function create_note() {
+        let NoteElemnet = document.createElement('div');
+        NoteElemnet.classList.add('draggable');
+        NoteElemnet.classList.add('bg-blue-500');
+        NoteElemnet.classList.add('absolute');
+        NoteElemnet.classList.add('cursor-move');
+        NoteElemnet.classList.add('zind');
+
+
+        NoteElemnet.textContent = "2task";
+        document.body.append(NoteElemnet);
+        var draggableElements = document.getElementsByClassName('draggable');
+        let initialX, initialY, currentElement;
+        Array.from(draggableElements).forEach(element => {
+            element.addEventListener('mousedown', startDragging);
+            element.addEventListener('mouseup', stopDragging);
+        });
     }
 
-    moveAt(event.pageX, event.pageY);
+    // Variables to store initial mouse position and the element being dragged
 
-    function onMouseMove(event) {
-        moveAt(event.pageX, event.pageY);
+    // Add event listeners to enable dragging for each draggable element
+
+
+    // Function to start dragging the element
+    function startDragging(event) {
+        currentElement = this;
+
+        initialX = event.clientX - currentElement.offsetLeft;
+        initialY = event.clientY - currentElement.offsetTop;
+        document.addEventListener('mousemove', dragging);
     }
 
-    document.addEventListener('mousemove', onMouseMove);
+    // Function to stop dragging the element
+    function stopDragging() {
+        document.removeEventListener('mousemove', dragging);
+        currentElement = null;
+    }
 
-    draggable.onmouseup = function() {
-        document.removeEventListener('mousemove', onMouseMove);
-        draggable.onmouseup = null;
-    };
-};
-
-draggable.ondragstart = function() {
-    return false;
-};
-
+    // Function to update the position of the element while dragging
+    function dragging(event) {
+        if (currentElement) {
+            const newX = event.clientX - initialX;
+            const newY = event.clientY - initialY;
+            currentElement.style.left = newX + 'px';
+            currentElement.style.top = newY + 'px';
+        }
+    }
 </script>
+
 </html>

@@ -58,3 +58,31 @@ body {
     justify-content: center;
     text-align: center;
 }
+
+.create {
+    background-color: rgb(116, 140, 171);
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    justify-content: center;
+    padding-top: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 5px 5px rgb(29, 45, 68);
+    margin-left: -10px;
+}
+
+.zind {
+    z-index: 4;
+    position: absolute;
+}
+
+.create_button {
+    appearance: none;
+    border: 0;
+    border-radius: 5px;
+    background: rgb(29, 45, 68);
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 16px;
+}
