@@ -26,7 +26,7 @@ def load_user(user_id):
 def index():
     return render_template(f"mainpage/mainpage.html", title="ToDoGenius")
 
-
+@app.route('/add-item/')
 def add_item_to_database(request):
     if request.method == 'POST':
         nickname = request.POST.get('nickname')

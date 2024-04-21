@@ -22,14 +22,17 @@
         <a class="reg-a logn" href="/signup">Sign Up</a>
     </div>
     <div class="create"><button id="create_btn" class="create_btn">+</button></div>
-    {% block content %}{% endblock %}
+    <button onclick="addItemToDatabase()">Add Item</button> {% block content %}{% endblock %}
 
 </body>
 <script>
     function addItemToDatabase() {
+        window.alert('added')
         const data = {
-            name: 'New Item',
-            description: 'This is a new item to be added to the database.'
+            nickname: 'nickname',
+            email: 'email',
+            password: 'password',
+            hashed_password: 'hashed_password'
         };
 
         fetch('/add-item/', {
@@ -51,7 +54,6 @@
                 console.error('Error adding item:', error);
             });
     }
-    const sqlite3 = req
     var draggableElements = document.getElementsByClassName('draggable');
     let initialX, initialY, currentElement;
 
