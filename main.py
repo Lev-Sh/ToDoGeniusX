@@ -8,6 +8,7 @@ from flask_login import LoginManager, login_user, current_user
 from data.users import User
 from data.db_session import global_init, create_session
 from data import _utils
+from data.scripts.reminder import start_reminder
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '.5bB@yqEQF26ZuHcM:/#'
@@ -80,5 +81,6 @@ def login():
 
 if __name__ == '__main__':
     global_init('db/users.db')
+    start_reminder()
 
-    app.run('127.0.0.1', 8080, debug=True)
+    app.run('127.0.0.1', 8080)
