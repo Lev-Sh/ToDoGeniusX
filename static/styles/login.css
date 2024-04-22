@@ -2,22 +2,29 @@ body {
     background-color: rgb(240, 235, 216)
 }
 
+label {
+    margin-bottom: 10px;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
 .logincontainer {
     display: flex;
     flex-direction: column;
-    position: relative;
     background-color: rgb(116, 140, 171);
     padding: 30px;
     justify-content: left;
-    right: 50%;
-    left: 50%;
-    width: 15%;
-    height: 70%;
+
+    margin: 30px auto 0px auto;
+    min-width: 350px;
+    max-width: 500px;
+
     border-radius: 15px;
     box-shadow: 5px 5px rgb(62, 92, 118);
 }
-
-.titleh {}
 
 .allpage {
     display: flex;
