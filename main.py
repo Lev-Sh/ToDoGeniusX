@@ -3,24 +3,18 @@ import bcrypt
 import sqlalchemy.exc
 
 from flask import Flask, render_template, redirect
-from flask_login import LoginManager, login_user, current_user, login_required, logout_user
+from flask_login import LoginManager, login_user, login_required, logout_user
 
-from data.users import User
-from data.db_session import global_init, create_session
+from data.db_models.users import User
+from data.db_models.db_session import global_init, create_session
 from data import _utils
-from data.scripts.reminder import start_reminder
+from data.scripts.reminder import Reminder
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '.5bB@yqEQF26ZuHcM:/#'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    db_sess = create_session()
-    return db_sess.get(User, user_id)
 
 
 @app.route('/')
@@ -78,6 +72,12 @@ def login():
     return render_template('login/login.html', title='Авторизация', form=form)
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    db_sess = create_session()
+    return db_sess.get(User, user_id)
+
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -86,7 +86,8 @@ def logout():
 
 
 if __name__ == '__main__':
-    global_init('db/users.db')
-    start_reminder(8)
+    global_init('db/database.db')
+    reminder = Reminder()
+    reminder.start_reminder(8)
 
     app.run('127.0.0.1', 8080)
