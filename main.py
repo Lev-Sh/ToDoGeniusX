@@ -3,7 +3,7 @@ import bcrypt
 import sqlalchemy.exc
 
 from flask import Flask, render_template, redirect
-from flask_login import LoginManager, login_user, current_user
+from flask_login import LoginManager, login_user, current_user, login_required, logout_user
 
 from data.users import User
 from data.db_session import global_init, create_session
@@ -20,7 +20,7 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = create_session()
-    return db_sess.query()
+    return db_sess.get(User, user_id)
 
 
 @app.route('/')
@@ -33,20 +33,19 @@ def signup():
     form = _utils.SignUpForm()
     if form.validate_on_submit():
         if not form.password.data == form.confirm_password.data:
-            pass
-            # return render_template('login/login.html',
-            #                        message='Введённые пароли не совпадают',
-            #                        form=form)
+            return render_template('signup/signup.html',
+                                   message='Введённые пароли не совпадают',
+                                   form=form)
         session = create_session()
         user = User()
 
         salt = bcrypt.gensalt()
         hashed_pass = hashlib.md5((form.password.data + salt.decode()).encode()).digest()
 
-        # user.nickname = form.nickname.data
-        # user.birthday = form.birthday.data
-        # if form.name.data:
-        #     user.name = form.name.data
+        user.nickname = form.nickname.data
+        user.birthday = form.birthday.data
+        if form.name.data:
+            user.name = form.name.data
         user.email = form.email.data
         user.hashed_password = hashed_pass
         user.salt = salt
@@ -56,10 +55,10 @@ def signup():
             login_user(user, remember=form.remember_me.data)
             return redirect('/')
         except sqlalchemy.exc.IntegrityError:
-            return render_template('signup/signuph.html', form=form, title='Регистрация',
+            return render_template('signup/signup.html', form=form, title='Регистрация',
                                    message='Данная электронная почта уже используется')
 
-    return render_template('signup/signuph.html', form=form, title='Регистрация')
+    return render_template('signup/signup.html', form=form, title='Регистрация')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -79,8 +78,15 @@ def login():
     return render_template('login/login.html', title='Авторизация', form=form)
 
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/')
+
+
 if __name__ == '__main__':
     global_init('db/users.db')
-    start_reminder()
+    start_reminder(8)
 
     app.run('127.0.0.1', 8080)

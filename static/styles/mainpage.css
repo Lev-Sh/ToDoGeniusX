@@ -27,11 +27,19 @@ body {
     padding-inline: 20px;
 }
 
-.reg-a {
-    background-color: rgb(62, 92, 118);
-    text-decoration: none;
+.current_user {
+    display:
+}
+
+.cur_login {
+    font-size: 25px;
     color: rgb(255, 218, 185);
-    padding-inline: 20px;
+    margin-bottom: 0px;
+}
+
+.cur_email {
+    font-size: 15px;
+    color: rgb(255, 236, 219);
 }
 
 .logn {

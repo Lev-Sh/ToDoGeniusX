@@ -1,0 +1,66 @@
+{% extends "login/baselogin.html" %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}">
+<h1 class="text-center">{{ title }}</h1>
+<div class="logincontainer">
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.email.label }}<br> {{ form.email(class="form-control", type="email") }}<br>
+
+            {% for error in form.email.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endfor %}
+
+        <p>
+            {{ form.nickname.label }}<br> {{ form.nickname(class="form-control") }}<br>
+
+            {% for error in form.nickname.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+
+        <p>
+        {{ form.name.label }}<br> {{ form.name(class="form-control") }}<br>
+
+        {% for error in form.name.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+
+        <p>
+        {{ form.birthday.label }}<br> {{ form.birthday(class="form-control") }}<br>
+
+        {% for error in form.birthday.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+
+        <p>
+            {{ form.password.label }}<br> {{ form.password(class="form-control", type="password") }}<br>
+
+            {% for error in form.password.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endfor %}
+
+        <p>
+            {{ form.confirm_password.label }}<br> {{ form.confirm_password(class="form-control", type="password") }}<br>
+
+            {% for error in form.confirm_password.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endfor %}
+
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <div>{{ message }}</div>
+    </form>
+</div>
+{% endblock %}
