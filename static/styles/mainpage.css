@@ -28,7 +28,19 @@ body {
 }
 
 .current_user {
-    display:
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    height: auto;
+    background-color: rgb(116, 140, 171);
+    float: left;
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 6px 6px rgb(29, 45, 68);
 }
 
 .cur_login {
@@ -42,13 +54,17 @@ body {
     color: rgb(255, 236, 219);
 }
 
+.transparent-1 {
+    border-color: transparent;
+}
+
 .logn {
     transition: .5s;
     border-radius: 3px;
     padding: 6px;
     padding-left: 10px;
     padding-right: 10px;
-    margin: auto;
+    width: 50%;
 }
 
 .logn:hover {
@@ -56,6 +72,7 @@ body {
     transition: .5s;
     cursor: context-menu;
     box-shadow: 5px 5px rgb(29, 45, 68);
+    border-radius: 3px;
 }
 
 .bg-blue-500 {
@@ -93,4 +110,50 @@ body {
     color: #fff;
     padding: 8px 16px;
     font-size: 16px;
+}
+
+.load_btn {
+    transition: .5s;
+    text-decoration: none;
+    background-color: rgb(62, 92, 118);
+    border: none;
+    margin-top: 5px;
+    width: 50%;
+    text-align: left;
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: wheat;
+    border-radius: 3px;
+}
+
+.load_btn:hover {
+    color: #CCC;
+    transition: .5s;
+    cursor: context-menu;
+    box-shadow: 3px 3px rgb(29, 45, 68);
+}
+
+.menu {
+    transform: translateX(-100%);
+}
+
+.show-menu {
+    transform: translateX(0);
+}
+
+.create_btn {
+    transition: .5s;
+    text-decoration: none;
+    background-color: rgb(62, 92, 118);
+    border: none;
+    color: wheat;
+    border-radius: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 6px;
+}
+
+.create_btn:hover {
+    box-shadow: 5px 5px rgb(29, 45, 68);
 }

@@ -1,13 +1,16 @@
 import hashlib
 import bcrypt
+import flask
 import sqlalchemy.exc
 
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user
-
+from data.db_models.cards import Card
+from data.db_models import db_session
 from data.db_models.users import User
 from data.db_models.db_session import global_init, create_session
-from data import _utils
+from data import _utils, cards_api
+
 from data.scripts.reminder import Reminder
 
 app = Flask(__name__)
@@ -87,6 +90,8 @@ def logout():
 
 if __name__ == '__main__':
     global_init('db/database.db')
+    app.register_blueprint(cards_api.blueprint)
+
     reminder = Reminder()
     reminder.start_reminder(8)
 
