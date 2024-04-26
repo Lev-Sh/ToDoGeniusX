@@ -8,10 +8,8 @@ const menu = document.getElementById("menu");
 menuBtn.onclick = function() {
     if (condition > 0) {
         menu.classList.toggle('show-menu');
-        mncrbtn.toggle('create');
     } else {
         menu.classList.toggle('menu');
-        mncrbtn.toggle('menu');
     }
     condition *= -1;
 };
