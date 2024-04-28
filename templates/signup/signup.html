@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}">
 <h1 class="text-center">{{ title }}</h1>
 <div class="logincontainer">
-    <form action="" method="post">
+    <form action="" method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p>
             {{ form.email.label }}<br> {{ form.email(class="form-control", type="email") }}<br>
@@ -32,7 +32,7 @@
         {% endfor %}
 
         <p>
-        {{ form.birthday.label }}<br> {{ form.birthday(class="form-control") }}<br>
+        {{ form.birthday.label }}<br> {{ form.birthday(class="form-control", type="date") }}<br>
 
         {% for error in form.birthday.errors %}
             <p class="alert alert-danger" role="alert">
@@ -51,6 +51,15 @@
 
         <p>
             {{ form.confirm_password.label }}<br> {{ form.confirm_password(class="form-control", type="password") }}<br>
+
+            {% for error in form.confirm_password.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endfor %}
+
+        <p>
+            {{ form.image.label }}<br> {{ form.image(class="form-control", type="file") }}<br>
 
             {% for error in form.confirm_password.errors %}
             <div class="alert alert-danger" role="alert">

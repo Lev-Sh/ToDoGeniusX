@@ -20,15 +20,18 @@
     <button id="menuBtn">CREATE</button>
     <div class="fixed inset-0 z-10 bg-white menu" id="menu">
     </div>
-    {% if current_user.is_authenticated %}
 
-    <div class="current_user">
-        <p class="cur_login">{{ current_user.nickname }}#{{ current_user.id }}</p>
-        <p class="cur_email">{{ current_user.email }}</p>
-        <a class="login-a logn" href="/logout">Logout</a>
-        <div class="load"><button id="load_btn" class="load_btn" onclick="loadCards()">Load cards</button></div>
-    </div>
-    <p id="cur_id" class="transparent-1">{{ current_user.id }}</p>
+    {% if current_user.is_authenticated %}
+        <div class="current_user">
+            <div class="user_header">
+                <img src="././static/profile_imgs/{{ current_user.id }}.png" alt="avatar" class="avatar">
+                <a class="cur_login" href="/profile">{{ current_user.nickname }}#{{ current_user.id }}</a>
+            </div>
+            <a class="cur_email" href="/profile">{{ current_user.email }}</a>
+            <a class="login-a logn" href="/logout">Logout</a>
+            <div class="load"><button id="load_btn" class="load_btn" onclick="loadCards()">Load cards</button></div>
+        </div>
+        <p id="cur_id" class="transparent-1">{{ current_user.id }}</p>
 
     {% else %}
     <div class="log-nav">
@@ -36,6 +39,7 @@
         <a class="login-a logn" href="/signup">Sign Up</a>
     </div>
     {% endif %}
+
     <div class="making"></div>
     <div class="create" id="mncrbtn"><button id="create_btn" class="create_btn" onclick="create_note()">+</button></div>
 

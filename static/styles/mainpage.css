@@ -43,15 +43,46 @@ body {
     box-shadow: 6px 6px rgb(29, 45, 68);
 }
 
+.user_header {
+    display: block;
+}
+
+.avatar {
+    display: inline-block;
+    max-width: 50px;
+    max-height: 50px;
+
+    margin-right: 10px;
+}
+
 .cur_login {
+    display: inline-block;
+
     font-size: 25px;
-    color: rgb(255, 218, 185);
-    margin-bottom: 0px;
+    color: #fbcbb2;
+    margin-bottom: 10px;
+
+    text-decoration: none;
+    transition: .2s linear;
+}
+
+.cur_login:hover {
+    color: #ffe6b4;
+    transition: .2s linear;
 }
 
 .cur_email {
     font-size: 15px;
     color: rgb(255, 236, 219);
+    margin-bottom: 10px;
+
+    text-decoration: none
+    transition: .2s linear;
+}
+
+.cur_email:hover {
+    color: #fff9d9;
+    transition: .2s linear;
 }
 
 .transparent-1 {
@@ -64,7 +95,9 @@ body {
     padding: 6px;
     padding-left: 10px;
     padding-right: 10px;
-    width: 50%;
+    width: 100%;
+
+    margin-bottom: 10px;
 }
 
 .logn:hover {
@@ -118,7 +151,7 @@ body {
     background-color: rgb(62, 92, 118);
     border: none;
     margin-top: 5px;
-    width: 50%;
+    width: 100%;
     text-align: left;
     padding: 6px;
     padding-left: 10px;
