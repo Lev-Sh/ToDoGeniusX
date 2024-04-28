@@ -16,25 +16,34 @@
                 <div class="img-placeholder">
                     <a class="btn btn-primary" href="/photo_loader/profile">Set up your avatar</a>
                 </div>
+                <div class="nickname_inner">
+                    <div class="nickname">{{ nickname }}</div>
+                    <a class="btn btn-primary with-margin" href="/change_profile/image">Change Nickname</a>
+                </div>
             {% else %}
                 <img src="././static/profile_imgs/{{ photo }}" alt="profile_photo" class="profile_img">
+                <div class="nickname_inner">
+                    <div class="nickname">{{ nickname }}</div>
+                    <a class="btn btn-primary with-margin" href="/change_profile/image">Change Image</a>
+                    <a class="btn btn-primary with-margin" href="/change_profile/nickname">Change Nickname</a>
+                </div>
             {% endif %}
-            <div class="nickname">{{ nickname }}</div>
         </div>
         <div class="profile_param">
             <div class="param_content param_title">Name:</div>
             <div class="param_content">{{ name }}</div>
+            <a class="btn btn-primary" href="/change_profile/name">Change Name</a>
         </div>
         <div class="profile_param">
             <div class="param_content param_title">Email:</div>
             <div class="param_content">{{ email }}</div>
+            <a class="btn btn-primary" href="/change_profile/email">Change Email</a>
         </div>
         <div class="profile_param">
             <div class="param_content param_title">Birthday:</div>
             <div class="param_content">{{ birthday }}</div>
+            <a class="btn btn-primary" href="/change_profile/birthday">Change Birthday</a>
         </div>
-
-        <a class="btn btn-primary">Change Information</a>
     </div>
 </div>
 </body>

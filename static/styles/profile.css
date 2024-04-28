@@ -59,13 +59,24 @@ body {
     margin: 5px 30px 5px 5px;
 }
 
+.nickname_inner {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
 .nickname {
     display: inline-block;
     vertical-align: top;
-    padding-top: 35px;
+    margin-left: 5px;
 
     color: #ffdab6;
     font-size: 40px;
+}
+
+.with-margin {
+    margin-bottom: 10px;
 }
 
 /* profile_info */

@@ -105,6 +105,38 @@ def profile():
     return render_template('profile/profile.html', **params)
 
 
+@app.route('/change_profile/<item>', methods=['GET', 'POST'])
+@login_required
+def change_profile(item):
+    if request.method == 'GET':
+        titles = {
+            'nickname': 'Изменение имени пользователя',
+            'name': 'Изменение имени',
+            'email': 'Изменение адреса электронной почты',
+            'birthday': 'Изменение даты рождения'
+        }
+
+        if item == 'image':
+            return redirect('/photo_loader/profile')
+        else:
+            return render_template('login/change_info.html', item=item, title=titles[item])
+    elif request.method == 'POST':
+        session = create_session()
+        db_user = session.query(User).filter(User.email == current_user.email).first()
+        if 'name' in request.form:
+            db_user.name = request.form['name']
+        elif 'nickname' in request.form:
+            db_user.nickname = request.form['nickname']
+        elif 'email' in request.form:
+            db_user.email = request.form['email']
+        elif 'birthday' in request.form:
+            db_user.birthday = request.form['birthday']
+
+        session.commit()
+
+        return redirect('/profile')
+
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = create_session()

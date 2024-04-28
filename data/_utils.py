@@ -17,7 +17,6 @@ class SignUpForm(LoginForm):
     birthday = DateField('Дата рождения *')
     confirm_password = PasswordField('Подтвердите пароль *', validators=[DataRequired()])
     image = FileField('Добавьте свой аватар', validators=[
-        FileRequired(),
         FileAllowed(['png'], 'PNG only!')
     ])
     submit = SubmitField('Зарегистрироваться')

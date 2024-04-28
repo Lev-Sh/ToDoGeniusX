@@ -1,12 +1,9 @@
-{% extends "login/baselogin.html" %} {% block content %}
-<h1 class="text-center">{{ title }}</h1>
-<div class="logincontainer">
-    <form method="post" enctype="multipart/form-data">
-        <div class="mb-3">
-          <label for="image_form" class="form-label"></label>
-          <input class="form-control" type="file" id="image_form" name="image">
-        </div>
-        <button type="submit" class="btn btn-primary">Отправить</button>
-    </form>
-</div>
+{% extends "login/input.html" %} {% block input_type %}
+<form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="image_form" class="form-label"></label>
+      <input class="form-control" type="file" id="image_form" name="image">
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
 {% endblock %}

@@ -32,7 +32,7 @@
         {% endfor %}
 
         <p>
-        {{ form.birthday.label }}<br> {{ form.birthday(class="form-control") }}<br>
+        {{ form.birthday.label }}<br> {{ form.birthday(class="form-control", type="date") }}<br>
 
         {% for error in form.birthday.errors %}
             <p class="alert alert-danger" role="alert">
