@@ -1,0 +1,91 @@
+html {
+    background-color: #f0ebd8;
+}
+
+body {
+    background-color: rgb(240, 235, 216);
+}
+
+.container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+
+    margin-top: 150px;
+}
+
+.back-button {
+    position: relative;
+
+    margin: 0 auto 15px auto;
+}
+
+.profile_container {
+    position: relative;
+    margin: 0 auto;
+    max-width: 50%;
+    background-color: #748cab;
+
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 15px;
+
+    font-size: 20px;
+}
+
+/* image_placeholder */
+
+.img-placeholder {
+    display: inline-block;
+    max-width: 200px;
+    max-height: 200px;
+
+    padding: 50px;
+    border: 2px solid #333;
+    margin-right: 30px;
+}
+
+/* header */
+
+.profile_header {
+    display: block;
+}
+
+.profile_img {
+    display: inline-block;
+    max-width: 200px;
+    max-height: 200px;
+
+    margin: 5px 30px 5px 5px;
+}
+
+.nickname {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 35px;
+
+    color: #ffdab6;
+    font-size: 40px;
+}
+
+/* profile_info */
+
+.profile_param {
+    display: block;
+
+    margin: 20px 10px;
+}
+
+.param_content {
+    display: inline-block;
+    font-size: 20px;
+    color: #ffdab6;
+
+    margin: 0 20px;
+}
+
+.param_title {
+    font-size: 30px;
+    color: #ffc58d;
+}
+

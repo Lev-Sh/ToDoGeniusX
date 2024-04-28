@@ -1,10 +1,12 @@
 import hashlib
+import os
+
 import bcrypt
 import flask
 import sqlalchemy.exc
 
-from flask import Flask, render_template, redirect, jsonify
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask import Flask, render_template, redirect, jsonify, request
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from data.db_models.cards import Card
 from data.db_models import db_session
 from data.db_models.users import User
@@ -40,7 +42,8 @@ def signup():
         hashed_pass = hashlib.md5((form.password.data + salt.decode()).encode()).digest()
 
         user.nickname = form.nickname.data
-        user.birthday = form.birthday.data
+        if form.birthday.data:
+            user.birthday = form.birthday.data
         if form.name.data:
             user.name = form.name.data
         user.email = form.email.data
@@ -50,6 +53,9 @@ def signup():
             session.add(user)
             session.commit()
             login_user(user, remember=form.remember_me.data)
+            if form.image.data:
+                with open(f'static/profile_imgs/{current_user.id}.png', 'wb') as img_file:
+                    img_file.write(form.image.data.read())
             return redirect('/')
         except sqlalchemy.exc.IntegrityError:
             return render_template('signup/signup.html', form=form, title='Регистрация',
@@ -75,6 +81,30 @@ def login():
     return render_template('login/login.html', title='Авторизация', form=form)
 
 
+@app.route('/profile')
+@login_required
+def profile():
+    user = current_user
+    user_id = user.id
+    user_photo = None
+
+    for image in os.listdir('static/profile_imgs'):
+        if image[:image.rfind('.')] == str(user_id):
+            user_photo = image
+            break
+
+    params = {
+        'title': f"{user.nickname}'s profile",
+        'photo': user_photo,
+        'nickname': f'{user.nickname}#{user.id}',
+        'name': user.name,
+        'birthday': user.birthday,
+        'email': user.email,
+    }
+
+    return render_template('profile/profile.html', **params)
+
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = create_session()
@@ -86,6 +116,19 @@ def load_user(user_id):
 def logout():
     logout_user()
     return redirect('/')
+
+
+@app.route('/photo_loader/<page>', methods=['GET', 'POST'])
+def photo_loader(page):
+    if request.method == 'GET':
+        return render_template('login/photo_loader.html', title='Загрузка фото')
+    elif request.method == 'POST':
+        f = request.files['image']
+        if current_user:
+            with open(f'static/profile_imgs/{current_user.id}.png', 'wb') as img_file:
+                img_file.write(f.read())
+
+        return redirect(f'/{page}')
 
 
 if __name__ == '__main__':
