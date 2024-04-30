@@ -51,17 +51,14 @@ body {
     display: inline-block;
     max-width: 50px;
     max-height: 50px;
-
     margin-right: 10px;
 }
 
 .cur_login {
     display: inline-block;
-
     font-size: 25px;
     color: #fbcbb2;
     margin-bottom: 10px;
-
     text-decoration: none;
     transition: .2s linear;
 }
@@ -71,13 +68,29 @@ body {
     transition: .2s linear;
 }
 
+.delbtns {
+    text-align: left;
+    align-items: start;
+    border: 1px red dashed;
+    background-color: transparent;
+    float: left;
+    margin: 5px;
+    width: 10%;
+    height: 10%;
+    border-radius: 6px;
+    color: red;
+}
+
 .cur_email {
     font-size: 15px;
     color: rgb(255, 236, 219);
     margin-bottom: 10px;
-
     text-decoration: none;
     transition: .2s linear;
+}
+
+.note-name {
+    background-color: rgb(62, 92, 118);
 }
 
 .cur_email:hover {
@@ -87,6 +100,22 @@ body {
 
 .transparent-1 {
     border-color: transparent;
+    color: transparent;
+}
+
+.note-name-text {
+    color: wheat;
+    font-size: large;
+}
+
+.not-setting {
+    background-color: rgb(116, 140, 171);
+    width: 15%;
+    height: 10%;
+    padding: 10px;
+    box-shadow: 6px 6px rgb(29, 45, 68);
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 .logn {
@@ -96,7 +125,6 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     width: 100%;
-
     margin-bottom: 10px;
 }
 
@@ -133,6 +161,7 @@ body {
 .zind {
     z-index: 4;
     position: absolute;
+    text-align: center;
 }
 
 .create_button {
@@ -193,26 +222,20 @@ body {
 
 .notification {
     display: block;
-
     position: absolute;
     right: 0%;
     bottom: 0%;
     background-color: #fff;
     margin: 20px;
-
     border: 2px solid #000;
     border-radius: 10px;
-
     padding: 0px 10px 10px 10px;
-
     cursor: pointer;
-
     transition: transform .2s;
 }
 
 .notification:hover {
     transform: translate(-5px, -5px);
-
     transition: transform .2s;
 }
 
@@ -220,7 +243,6 @@ body {
     position: relative;
     top: 15px;
     left: 10%;
-
     width: 15px;
     height: 15px;
     background-color: #FF0000;
@@ -236,6 +258,8 @@ body {
     height: 50%;
     background-color: rgb(239, 207, 147);
     border-radius: 3px;
+    float: left;
+    margin: 10px;
     appearance: none;
     text-decoration: none;
     color: black;
