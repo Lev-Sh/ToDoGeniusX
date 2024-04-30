@@ -4,109 +4,66 @@
 <head>
     <meta name="viewport" content="width=device-width">
 
-    <script src="'static/mainpagejs.js'"></script>
+    <script src="static/mainpagejs.js"></script>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mainpagecs.css') }}">
-
-
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mainpage.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    {% block content %}{% endblock %}
 </head>
 
 <body>
 
-    <h2 class="text-center ">HELLO</h2>
-    <div class="log-nav ">
-        <a class="login-a logn" href="/login">Login</a>
-        <a class="reg-a logn" href="/signup">Sign Up</a>
+    <h2 class="text-center">ToDoGeniusX</h2>
+    <div class="fixed inset-0 z-10 bg-white menu" id="menu">
     </div>
-    <div class="create"><button id="create_btn" class="create_btn">+</button></div>
-    <button onclick="addItemToDatabase()">Add Item</button> {% block content %}{% endblock %}
+
+    {% if current_user.is_authenticated %}
+    <div class="current_user">
+        <div class="user_header">
+            <img src="././static/profile_imgs/{{ current_user.id }}.png" alt="avatar" class="avatar">
+            <a class="cur_login" href="/profile">{{ current_user.nickname }}#{{ current_user.id }}</a>
+        </div>
+        <a class="cur_email" href="/profile">{{ current_user.email }}</a>
+        <a class="login-a logn" href="/logout">Logout</a>
+        <div class="load"><button id="load_btn" class="load_btn" onclick="loadCards()">Load cards</button></div>
+    </div>
+    <a class="notification" href="/notifications">
+            {% if point == True %}
+                <div class="point"></div>
+            {% else %}
+                <div class="point no-opacity"></div>
+            {% endif %}
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="50px" width="50px" version="1.1" id="Capa_1" viewBox="0 0 611.999 611.999" xml:space="preserve">
+                <g>
+                    <g>
+                        <g>
+                            <path d="M570.107,500.254c-65.037-29.371-67.511-155.441-67.559-158.622v-84.578c0-81.402-49.742-151.399-120.427-181.203     C381.969,34,347.883,0,306.001,0c-41.883,0-75.968,34.002-76.121,75.849c-70.682,29.804-120.425,99.801-120.425,181.203v84.578     c-0.046,3.181-2.522,129.251-67.561,158.622c-7.409,3.347-11.481,11.412-9.768,19.36c1.711,7.949,8.74,13.626,16.871,13.626     h164.88c3.38,18.594,12.172,35.892,25.619,49.903c17.86,18.608,41.479,28.856,66.502,28.856     c25.025,0,48.644-10.248,66.502-28.856c13.449-14.012,22.241-31.311,25.619-49.903h164.88c8.131,0,15.159-5.676,16.872-13.626     C581.586,511.664,577.516,503.6,570.107,500.254z M484.434,439.859c6.837,20.728,16.518,41.544,30.246,58.866H97.32     c13.726-17.32,23.407-38.135,30.244-58.866H484.434z M306.001,34.515c18.945,0,34.963,12.73,39.975,30.082     c-12.912-2.678-26.282-4.09-39.975-4.09s-27.063,1.411-39.975,4.09C271.039,47.246,287.057,34.515,306.001,34.515z      M143.97,341.736v-84.685c0-89.343,72.686-162.029,162.031-162.029s162.031,72.686,162.031,162.029v84.826     c0.023,2.596,0.427,29.879,7.303,63.465H136.663C143.543,371.724,143.949,344.393,143.97,341.736z M306.001,577.485     c-26.341,0-49.33-18.992-56.709-44.246h113.416C355.329,558.493,332.344,577.485,306.001,577.485z"/>
+                            <path d="M306.001,119.235c-74.25,0-134.657,60.405-134.657,134.654c0,9.531,7.727,17.258,17.258,17.258     c9.531,0,17.258-7.727,17.258-17.258c0-55.217,44.923-100.139,100.142-100.139c9.531,0,17.258-7.727,17.258-17.258     C323.259,126.96,315.532,119.235,306.001,119.235z"/>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </a>
+    <p id="cur_id" class="transparent-1">{{ current_user.id }}</p>
+
+    {% else %}
+    <div class="log-nav">
+        <a class="login-a logn" href="/login">Login</a>
+        <a class="login-a logn" href="/signup">Sign Up</a>
+    </div>
+    {% endif %}
+
+    <div class="making"></div>
+    <div class="not-setting">
+        <p class="note-name-text">Note name</p>
+        <input class="note-name" id="inp-note"></input>
+    </div>
+    <div class="create" id="mncrbtn"><button id="create_btn" class="create_btn" onclick="create_note()">+</button></div>
 
 </body>
-<script>
-    function addItemToDatabase() {
-        window.alert('added')
-        const data = {
-            nickname: 'nickname',
-            email: 'email',
-            password: 'password',
-            hashed_password: 'hashed_password'
-        };
 
-        fetch('/add-item/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken')
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Item added to the database successfully!');
-                } else {
-                    console.error('Failed to add item to the database.');
-                }
-            })
-            .catch(error => {
-                console.error('Error adding item:', error);
-            });
-    }
-    var draggableElements = document.getElementsByClassName('draggable');
-    let initialX, initialY, currentElement;
-
-    document.getElementById("create_btn").onclick = function() {
-        create_note()
-    }
-    Array.from(draggableElements).forEach(element => {
-        element.addEventListener('mousedown', startDragging);
-        element.addEventListener('mouseup', stopDragging);
-    });
-
-    function create_note() {
-        let NoteElemnet = document.createElement('div');
-        NoteElemnet.classList.add('draggable');
-        NoteElemnet.classList.add('bg-blue-500');
-        NoteElemnet.classList.add('absolute');
-        NoteElemnet.classList.add('cursor-move');
-        NoteElemnet.classList.add('zind');
-
-
-        NoteElemnet.textContent = "2task";
-        document.body.append(NoteElemnet);
-        var draggableElements = document.getElementsByClassName('draggable');
-        let initialX, initialY, currentElement;
-        Array.from(draggableElements).forEach(element => {
-            element.addEventListener('mousedown', startDragging);
-            element.addEventListener('mouseup', stopDragging);
-        });
-    }
-
-    function startDragging(event) {
-        currentElement = this;
-
-        initialX = event.clientX - currentElement.offsetLeft;
-        initialY = event.clientY - currentElement.offsetTop;
-        document.addEventListener('mousemove', dragging);
-    }
-
-    // Function to stop dragging the element
-    function stopDragging() {
-        document.removeEventListener('mousemove', dragging);
-        currentElement = null;
-    }
-
-    // Function to update the position of the element while dragging
-    function dragging(event) {
-        if (currentElement) {
-            const newX = event.clientX - initialX;
-            const newY = event.clientY - initialY;
-            currentElement.style.left = newX + 'px';
-            currentElement.style.top = newY + 'px';
-        }
-    }
-</script>
 
 </html>

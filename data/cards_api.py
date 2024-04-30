@@ -20,8 +20,6 @@ def move_card(card_id, left_px, top_px):
     card.top_px = top_px
     db_sess.commit()
     return 'ok'
-
-
 @blueprint.route('/api/cards/<int:card_id>', methods=['DELETE'])
 def name_of_card(card_id):
     db_sess = db_session.create_session()
@@ -29,7 +27,6 @@ def name_of_card(card_id):
     db_sess.delete(card)
     db_sess.commit()
     return 'ok'
-
 
 @blueprint.route('/api/cards/<int:user_id>', methods=['GET'])
 def get_cards(user_id):
