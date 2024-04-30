@@ -1,18 +1,20 @@
 import hashlib
+import io
 import os
+from threading import Thread
 
 import bcrypt
 import flask
 import sqlalchemy.exc
 
+from PIL import Image
 from flask import Flask, render_template, redirect, jsonify, request
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from data.db_models.cards import Card
-from data.db_models import db_session
+
+from data.db_models.notifications import Notification
 from data.db_models.users import User
 from data.db_models.db_session import global_init, create_session
 from data import _utils, cards_api
-
 from data.scripts.reminder import Reminder
 
 app = Flask(__name__)
@@ -24,7 +26,13 @@ login_manager.init_app(app)
 
 @app.route('/')
 def index():
-    return render_template(f"mainpage/mainpage.html", title="ToDoGenius")
+    if current_user.is_authenticated:
+        for notification in current_user.notification:
+            if notification.seen == 0:
+                return render_template(f"mainpage/mainpage.html", title="ToDoGenius", point=True)
+        return render_template(f"mainpage/mainpage.html", title="ToDoGenius", point=False)
+
+    return render_template(f"mainpage/mainpage.html", title="ToDoGenius", point=False)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -105,6 +113,23 @@ def profile():
     return render_template('profile/profile.html', **params)
 
 
+@app.route('/notifications')
+@login_required
+def notifications():
+    session = create_session()
+    params = {
+        'notifications': current_user.notification
+    }
+
+    for notification in current_user.notification:
+        notification = session.get(Notification, notification.id)
+        notification.seen = 1
+
+    session.commit()
+
+    return render_template('profile/notifications.html', **params)
+
+
 @app.route('/change_profile/<item>', methods=['GET', 'POST'])
 @login_required
 def change_profile(item):
@@ -151,15 +176,15 @@ def logout():
 
 
 @app.route('/photo_loader/<page>', methods=['GET', 'POST'])
+@login_required
 def photo_loader(page):
     if request.method == 'GET':
         return render_template('login/photo_loader.html', title='Загрузка фото')
     elif request.method == 'POST':
         f = request.files['image']
-        if current_user:
-            with open(f'static/profile_imgs/{current_user.id}.png', 'wb') as img_file:
-                img_file.write(f.read())
-
+        image = Image.open(io.BytesIO(f.read()))
+        image = image.resize((200, 200))
+        image.save(f'static/profile_imgs/{current_user.id}.png', 'png')
         return redirect(f'/{page}')
 
 
@@ -168,6 +193,6 @@ if __name__ == '__main__':
     app.register_blueprint(cards_api.blueprint)
 
     reminder = Reminder()
-    reminder.start_reminder(8)
+    reminder.start_reminder(2)
 
     app.run('127.0.0.1', 8080)
