@@ -1,0 +1,243 @@
+body {
+    background-color: rgb(240, 235, 216)
+}
+
+.log-nav {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+    background-color: rgb(116, 140, 171);
+    color: #999;
+    padding: 15px;
+    border-radius: 11px;
+    width: 15%;
+    flex-wrap: wrap;
+    flex-shrink: 5;
+    justify-content: space-around;
+    box-shadow: 5px 5px rgb(29, 45, 68);
+}
+
+.login-a {
+    background-color: rgb(62, 92, 118);
+    text-decoration: none;
+    color: rgb(255, 218, 185);
+    padding-inline: 20px;
+}
+
+.current_user {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    height: auto;
+    background-color: rgb(116, 140, 171);
+    float: left;
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 6px 6px rgb(29, 45, 68);
+}
+
+.user_header {
+    display: block;
+}
+
+.avatar {
+    display: inline-block;
+    max-width: 50px;
+    max-height: 50px;
+
+    margin-right: 10px;
+}
+
+.cur_login {
+    display: inline-block;
+
+    font-size: 25px;
+    color: #fbcbb2;
+    margin-bottom: 10px;
+
+    text-decoration: none;
+    transition: .2s linear;
+}
+
+.cur_login:hover {
+    color: #ffe6b4;
+    transition: .2s linear;
+}
+
+.cur_email {
+    font-size: 15px;
+    color: rgb(255, 236, 219);
+    margin-bottom: 10px;
+
+    text-decoration: none;
+    transition: .2s linear;
+}
+
+.cur_email:hover {
+    color: #fff9d9;
+    transition: .2s linear;
+}
+
+.transparent-1 {
+    border-color: transparent;
+}
+
+.logn {
+    transition: .5s;
+    border-radius: 3px;
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+
+    margin-bottom: 10px;
+}
+
+.logn:hover {
+    color: #CCC;
+    transition: .5s;
+    cursor: context-menu;
+    box-shadow: 5px 5px rgb(29, 45, 68);
+    border-radius: 3px;
+}
+
+.bg-blue-500 {
+    background-color: wheat;
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    justify-content: center;
+    text-align: center;
+}
+
+.create {
+    background-color: rgb(116, 140, 171);
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    justify-content: center;
+    padding-top: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 5px 5px rgb(29, 45, 68);
+    margin-left: -10px;
+}
+
+.zind {
+    z-index: 4;
+    position: absolute;
+}
+
+.create_button {
+    appearance: none;
+    border: 0;
+    border-radius: 5px;
+    background: rgb(29, 45, 68);
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 16px;
+}
+
+.load_btn {
+    transition: .5s;
+    text-decoration: none;
+    background-color: rgb(62, 92, 118);
+    border: none;
+    margin-top: 5px;
+    width: 100%;
+    text-align: left;
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: wheat;
+    border-radius: 3px;
+}
+
+.load_btn:hover {
+    color: #CCC;
+    transition: .5s;
+    cursor: context-menu;
+    box-shadow: 3px 3px rgb(29, 45, 68);
+}
+
+.menu {
+    transform: translateX(-100%);
+}
+
+.show-menu {
+    transform: translateX(0);
+}
+
+.create_btn {
+    transition: .5s;
+    text-decoration: none;
+    background-color: rgb(62, 92, 118);
+    border: none;
+    color: wheat;
+    border-radius: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 6px;
+}
+
+.create_btn:hover {
+    box-shadow: 5px 5px rgb(29, 45, 68);
+}
+
+.notification {
+    display: block;
+
+    position: absolute;
+    right: 0%;
+    bottom: 0%;
+    background-color: #fff;
+    margin: 20px;
+
+    border: 2px solid #000;
+    border-radius: 10px;
+
+    padding: 0px 10px 10px 10px;
+
+    cursor: pointer;
+
+    transition: transform .2s;
+}
+
+.notification:hover {
+    transform: translate(-5px, -5px);
+
+    transition: transform .2s;
+}
+
+.point {
+    position: relative;
+    top: 15px;
+    left: 10%;
+
+    width: 15px;
+    height: 15px;
+    background-color: #FF0000;
+    border-radius: 50%;
+}
+
+.no-opacity {
+    opacity: 0;
+}
+
+.inp-field {
+    width: 80%;
+    height: 50%;
+    background-color: rgb(239, 207, 147);
+    border-radius: 3px;
+    appearance: none;
+    text-decoration: none;
+    color: black;
+    border: 1px bisque dashed;
+}

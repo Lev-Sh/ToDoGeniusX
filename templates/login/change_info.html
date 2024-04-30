@@ -1,0 +1,18 @@
+{% extends "login/input.html" %} {% block input_type %}
+<form method="POST">
+    {% if item == "nickname" %}
+        <label for="nickname" class="form-label">Введите новое имя пользователя</label>
+        <input class="form-control" id="nickname" name="nickname">
+    {% elif item == "name" %}
+        <label for="name" class="form-label">Введите ваше настоящее имя</label>
+        <input class="form-control" id="name" name="name">
+    {% elif item == "email" %}
+        <label for="email" class="form-label">Введите новый адрес электронной почты</label>
+        <input class="form-control" id="email" type="email" name="email">
+    {% else %}
+        <label for="birthday" class="form-label">Введите вашу дату рождения</label>
+        <input class="form-control" id="birthday" type="date" name="birthday">
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{% endblock %}

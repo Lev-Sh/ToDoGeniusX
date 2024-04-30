@@ -1,11 +1,11 @@
-import datetime
-
 import sqlalchemy as sa
-from .db_session import SqlAlchemyBase
 from flask_login import UserMixin
+from sqlalchemy import orm
+from sqlalchemy_serializer import SerializerMixin
+from .db_session import SqlAlchemyBase
 
 
-class User(SqlAlchemyBase, UserMixin):
+class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'users'
 
     id = sa.Column(sa.Integer,
@@ -16,3 +16,6 @@ class User(SqlAlchemyBase, UserMixin):
     email = sa.Column(sa.String, index=True, unique=True)
     hashed_password = sa.Column(sa.String)
     salt = sa.Column(sa.String)
+
+    card = orm.relationship('Card', back_populates='user')
+    notification = orm.relationship('Notification', back_populates='user')
