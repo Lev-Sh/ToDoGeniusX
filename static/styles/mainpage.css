@@ -51,17 +51,14 @@ body {
     display: inline-block;
     max-width: 50px;
     max-height: 50px;
-
     margin-right: 10px;
 }
 
 .cur_login {
     display: inline-block;
-
     font-size: 25px;
     color: #fbcbb2;
     margin-bottom: 10px;
-
     text-decoration: none;
     transition: .2s linear;
 }
@@ -75,9 +72,7 @@ body {
     font-size: 15px;
     color: rgb(255, 236, 219);
     margin-bottom: 10px;
-
-    text-decoration: none
-    transition: .2s linear;
+    text-decoration: none transition .2s linear;
 }
 
 .cur_email:hover {
@@ -87,6 +82,7 @@ body {
 
 .transparent-1 {
     border-color: transparent;
+    color: transparent;
 }
 
 .logn {
@@ -96,7 +92,6 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     width: 100%;
-
     margin-bottom: 10px;
 }
 
@@ -131,8 +126,33 @@ body {
 }
 
 .zind {
+    display: inline-block;
     z-index: 4;
     position: absolute;
+    text-wrap: wrap;
+    top: 5px;
+    padding: 5px;
+    text-align: left;
+}
+
+.note-name {
+    margin: 5px;
+    background-color: rgb(116, 140, 171);
+    border-radius: 3px;
+    width: 90%;
+}
+
+.not-setting {
+    background-color: rgb(116, 140, 171);
+    box-shadow: 5px 5px rgb(29, 45, 68);
+    border-radius: 3px;
+    width: 10%;
+}
+
+.note-name-text {
+    margin: 5px;
+    border-radius: 3px;
+    color: black;
 }
 
 .create_button {
@@ -143,6 +163,16 @@ body {
     color: #fff;
     padding: 8px 16px;
     font-size: 16px;
+}
+
+.delbtns {
+    background-color: transparent;
+    appearance: none;
+    border: 1px dashed red;
+    border-radius: 6px;
+    color: red;
+    width: 15%;
+    height: 15%;
 }
 
 .load_btn {
@@ -189,4 +219,15 @@ body {
 
 .create_btn:hover {
     box-shadow: 5px 5px rgb(29, 45, 68);
+}
+
+.inp-field {
+    width: 80%;
+    height: 50%;
+    background-color: rgb(239, 207, 147);
+    border-radius: 3px;
+    appearance: none;
+    text-decoration: none;
+    color: black;
+    border: 1px bisque dashed;
 }

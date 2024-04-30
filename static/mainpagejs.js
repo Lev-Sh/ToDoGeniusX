@@ -1,6 +1,7 @@
 var draggableElements = document.getElementsByClassName('draggable');
 let initialX, initialY, currentElement;
 var condition = 1;
+var cardsloaded = false;
 const createBtn = document.getElementById("create_btn");
 const menuBtn = document.getElementById("menuBtn");
 const mncrbtn = document.getElementById("mncrbtn");
@@ -22,16 +23,33 @@ Array.from(draggableElements).forEach(element => {
     element.addEventListener('mouseup', stopDragging);
 });
 
-function create_note() {
+function delete_note(id) {
+    $.ajax({
+        url: "http://127.0.0.1:8080/api/cards/" + id,
+        method: "DELETE",
+        success: function(data) {
+            const el = document.getElementById(id);
+            el.remove();
+            console.log(data);
+        }
+    })
+}
+
+function add_note(cid, left_px, top_px, nameS) {
     let NoteElemnet = document.createElement('div');
     NoteElemnet.classList.add('draggable');
     NoteElemnet.classList.add('bg-blue-500');
     NoteElemnet.classList.add('absolute');
+
     NoteElemnet.classList.add('cursor-move');
     NoteElemnet.classList.add('zind');
-
-
-    NoteElemnet.textContent = "2task";
+    console.log(nameS);
+    NoteElemnet.textContent = nameS;
+    NoteElemnet.id = cid;
+    NoteElemnet.style.top = top_px + 'px';
+    NoteElemnet.style.left = left_px + 'px';
+    console.log(NoteElemnet.style.top, top_px + 'px');
+    NoteElemnet.innerHTML = '<button class="delbtns" onclick="delete_note(' + cid + ')">X</button> <p><b>' + nameS + '</b></p><input class="inp-field"></input>';
     document.body.append(NoteElemnet);
     var draggableElements = document.getElementsByClassName('draggable');
     let initialX, initialY, currentElement;
@@ -39,7 +57,12 @@ function create_note() {
         element.addEventListener('mousedown', startDragging);
         element.addEventListener('mouseup', stopDragging);
     });
-    postCards()
+}
+
+function create_note() {
+    NTname = document.getElementById('inp-note').value;
+    console.log(NTname)
+    postCards(NTname);
 }
 
 function startDragging(event) {
@@ -52,6 +75,15 @@ function startDragging(event) {
 
 function stopDragging() {
     document.removeEventListener('mousemove', dragging);
+    var url = 'http://127.0.0.1:8080/api/cards/' + currentElement.id + '/' + currentElement.style.left.replace('px', '') + '/' + currentElement.style.top.replace('px', '')
+    console.log(currentElement.style.left)
+    $.ajax({
+        url: url,
+        method: 'PUT',
+        success: function(data) {
+            console.log(data)
+        }
+    })
     currentElement = null;
 }
 
@@ -66,37 +98,48 @@ function dragging(event) {
 
 function loadCards() {
     let id_user = document.getElementById("cur_id").textContent;
-    $.ajax({
-        url: 'http://127.0.0.1:8080/api/cards/' + id_user,
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            alert(data[0].Card.name)
-        }
-    })
+    console.log(id_user, cardsloaded)
+    if (cardsloaded == false) {
+
+        $.ajax({
+            url: 'http://127.0.0.1:8080/api/cards/' + id_user,
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                var l = 0;
+                for (let i in data) {
+                    add_note(data[l]["Card"]["id"], data[l]["Card"]["left_px"], data[l]["Card"]["top_px"], data[l]["Card"]["name"]);
+                    console.log(data[l]["Card"]["id"]);
+                    l += 1;
+                }
+                cardsloaded = true;
+            }
+        })
+    }
 }
 
-function postCards() {
-    let name = "test 2";
+function postCards(nameN) {
+    let name = nameN;
     let top_px = 100;
     let left_px = 100;
     let color = "red";
-    let user_id = 2;
+    let user_id = document.getElementById("cur_id").textContent;
     var data = {
-        name: 'javascript TEST',
+        name: name,
         top_px: 500,
         left_px: 600,
         color: 'blue',
-        user_id: 2
+        user_id: user_id
     }
-
 
     $.ajax({
         url: 'http://127.0.0.1:8080/api/cards',
         method: 'POST',
         data: JSON.stringify(data),
         contentType: "application/json",
-    }).done(
-        alert('Card added')
-    )
+        success: function(dl) {
+            add_note(dl, 100, 100, nameN);
+
+        }
+    })
 }

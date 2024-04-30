@@ -14,5 +14,5 @@ class Card(SqlAlchemyBase, SerializerMixin):
     top_px = sa.Column(sa.Integer, default=100)
     left_px = sa.Column(sa.Integer, default=100)
     color = sa.Column(sa.String, default='(245, 222, 179)')
-
+    content = sa.Column(sa.String, default='', nullable=True)
     user = orm.relationship('User')
