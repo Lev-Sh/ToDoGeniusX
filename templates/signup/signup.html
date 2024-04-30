@@ -51,7 +51,11 @@
 
         <p>
             {{ form.confirm_password.label }}<br> {{ form.confirm_password(class="form-control", type="password") }}<br>
-
+            {% if password_error != None %}
+                <div class="alert alert-danger" role="alert">
+                    {{ password_error }}
+                </div>
+            {% endif %}
             {% for error in form.confirm_password.errors %}
             <div class="alert alert-danger" role="alert">
                 {{ error }}

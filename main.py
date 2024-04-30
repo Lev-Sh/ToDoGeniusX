@@ -1,14 +1,12 @@
 import hashlib
 import io
 import os
-from threading import Thread
 
 import bcrypt
-import flask
 import sqlalchemy.exc
 
 from PIL import Image
-from flask import Flask, render_template, redirect, jsonify, request
+from flask import Flask, render_template, redirect, request
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 from data.db_models.notifications import Notification
@@ -41,11 +39,18 @@ def signup():
     if form.validate_on_submit():
         if not form.password.data == form.confirm_password.data:
             return render_template('signup/signup.html',
-                                   message='Введённые пароли не совпадают',
+                                   message='Введённые пароли не совпадают.',
                                    form=form)
         session = create_session()
         user = User()
 
+        if not _utils.check_password_complexity(form.password.data):
+            return render_template('signup/signup.html',
+                                   form=form, title='Регистрация',
+                                   message='Пароль недостаточно сложный. Введите более сложный пароль.',
+                                   password_error='Пароль должен содержать одну заглавную букву любого алфавита,'
+                                                  ' одну цифру, один специальный символ [!@#$%^&*()_+=,./;:|?><`~] и'
+                                                  ' быть длиной не менее 8 символов.')
         salt = bcrypt.gensalt()
         hashed_pass = hashlib.md5((form.password.data + salt.decode()).encode()).digest()
 
@@ -67,9 +72,9 @@ def signup():
             return redirect('/')
         except sqlalchemy.exc.IntegrityError:
             return render_template('signup/signup.html', form=form, title='Регистрация',
-                                   message='Данная электронная почта уже используется')
+                                   message='Данная электронная почта уже используется.', password_error=None)
 
-    return render_template('signup/signup.html', form=form, title='Регистрация')
+    return render_template('signup/signup.html', form=form, title='Регистрация', password_error=None)
 
 
 @app.route('/login', methods=['GET', 'POST'])
