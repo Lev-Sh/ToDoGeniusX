@@ -76,7 +76,7 @@ body {
     color: rgb(255, 236, 219);
     margin-bottom: 10px;
 
-    text-decoration: none
+    text-decoration: none;
     transition: .2s linear;
 }
 
@@ -229,4 +229,15 @@ body {
 
 .no-opacity {
     opacity: 0;
+}
+
+.inp-field {
+    width: 80%;
+    height: 50%;
+    background-color: rgb(239, 207, 147);
+    border-radius: 3px;
+    appearance: none;
+    text-decoration: none;
+    color: black;
+    border: 1px bisque dashed;
 }

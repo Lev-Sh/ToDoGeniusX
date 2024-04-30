@@ -12,6 +12,25 @@ blueprint = flask.Blueprint(
 )
 
 
+@blueprint.route('/api/cards/<int:card_id>/<int:left_px>/<int:top_px>', methods=['PUT'])
+def move_card(card_id, left_px, top_px):
+    db_sess = db_session.create_session()
+    card = db_sess.query(Card).get(card_id)
+    card.left_px = left_px
+    card.top_px = top_px
+    db_sess.commit()
+    return 'ok'
+
+
+@blueprint.route('/api/cards/<int:card_id>', methods=['DELETE'])
+def name_of_card(card_id):
+    db_sess = db_session.create_session()
+    card = db_sess.query(Card).get(card_id)
+    db_sess.delete(card)
+    db_sess.commit()
+    return 'ok'
+
+
 @blueprint.route('/api/cards/<int:user_id>', methods=['GET'])
 def get_cards(user_id):
     db_sess = db_session.create_session()
@@ -19,8 +38,10 @@ def get_cards(user_id):
     all_cards = []
     for i in cards:
         all_cards.append({f'Card':
-            i.to_dict(only=('name', 'top_px', 'left_px', 'user.name'))})
+                              i.to_dict(only=('id','name', 'top_px', 'left_px', 'user.name', 'content'))})
     return jsonify(all_cards)
+
+
 @blueprint.route('/api/cards', methods=['POST'])
 def create_cards():
     if not request.json:
@@ -38,4 +59,4 @@ def create_cards():
     )
     db_sess.add(card)
     db_sess.commit()
-    return jsonify({'id': card.id})
+    return str(card.id)
