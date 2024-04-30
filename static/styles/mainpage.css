@@ -190,3 +190,43 @@ body {
 .create_btn:hover {
     box-shadow: 5px 5px rgb(29, 45, 68);
 }
+
+.notification {
+    display: block;
+
+    position: absolute;
+    right: 0%;
+    bottom: 0%;
+    background-color: #fff;
+    margin: 20px;
+
+    border: 2px solid #000;
+    border-radius: 10px;
+
+    padding: 0px 10px 10px 10px;
+
+    cursor: pointer;
+
+    transition: transform .2s;
+}
+
+.notification:hover {
+    transform: translate(-5px, -5px);
+
+    transition: transform .2s;
+}
+
+.point {
+    position: relative;
+    top: 15px;
+    left: 10%;
+
+    width: 15px;
+    height: 15px;
+    background-color: #FF0000;
+    border-radius: 50%;
+}
+
+.no-opacity {
+    opacity: 0;
+}
