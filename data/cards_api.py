@@ -11,7 +11,13 @@ blueprint = flask.Blueprint(
     template_folder='templates'
 )
 
-
+@blueprint.route('/api/cards/<int:card_id>/<string:content>', methods=['PUT'])
+def card_content(card_id, content):
+    db_sess = db_session.create_session()
+    card = db_sess.query(Card).get(card_id)
+    card.content = content
+    db_sess.commit()
+    return 'ok'
 @blueprint.route('/api/cards/<int:card_id>/<int:left_px>/<int:top_px>', methods=['PUT'])
 def move_card(card_id, left_px, top_px):
     db_sess = db_session.create_session()

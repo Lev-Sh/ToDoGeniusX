@@ -6,7 +6,26 @@ const createBtn = document.getElementById("create_btn");
 const menuBtn = document.getElementById("menuBtn");
 const mncrbtn = document.getElementById("mncrbtn");
 const menu = document.getElementById("menu");
+input_setting();
+
+function input_setting() {
+    var inputElements = document.getElementsByClassName('inp-field');
+    for (let i = 0; i < inputElements.length; i++) {
+        inputElements[i].addEventListener('change', function(event) {
+            var url = 'http://127.0.0.1:8080/api/cards/' + inputElements[i].parentElement.id + '/' + event.target.value;
+            console.log(inputElements[i].parentElement.id, event.target.value)
+            $.ajax({
+                url: url,
+                method: 'PUT',
+                success: function(data) {
+                    console.log(data)
+                }
+            })
+        });
+    }
+}
 menuBtn.onclick = function() {
+    ø
     if (condition > 0) {
         menu.classList.toggle('show-menu');
     } else {
@@ -35,7 +54,7 @@ function delete_note(id) {
     })
 }
 
-function add_note(cid, left_px, top_px, nameS) {
+function add_note(cid, left_px, top_px, nameS, contentS) {
     let NoteElemnet = document.createElement('div');
     NoteElemnet.classList.add('draggable');
     NoteElemnet.classList.add('bg-blue-500');
@@ -49,7 +68,7 @@ function add_note(cid, left_px, top_px, nameS) {
     NoteElemnet.style.top = top_px + 'px';
     NoteElemnet.style.left = left_px + 'px';
     console.log(NoteElemnet.style.top, top_px + 'px');
-    NoteElemnet.innerHTML = '<button class="delbtns" onclick="delete_note(' + cid + ')">X</button> <p><b>' + nameS + '</b></p><input class="inp-field"></input>';
+    NoteElemnet.innerHTML = '<button class="delbtns" onclick="delete_note(' + cid + ')">X</button> <p><b>' + nameS + '</b></p><input class="inp-field" placeholder="Input note content" value="' + contentS + '"></input>';
     document.body.append(NoteElemnet);
     var draggableElements = document.getElementsByClassName('draggable');
     let initialX, initialY, currentElement;
@@ -57,12 +76,15 @@ function add_note(cid, left_px, top_px, nameS) {
         element.addEventListener('mousedown', startDragging);
         element.addEventListener('mouseup', stopDragging);
     });
+    input_setting();
 }
 
 function create_note() {
     NTname = document.getElementById('inp-note').value;
     console.log(NTname)
     postCards(NTname);
+    input_setting();
+
 }
 
 function startDragging(event) {
@@ -108,7 +130,7 @@ function loadCards() {
             success: function(data) {
                 var l = 0;
                 for (let i in data) {
-                    add_note(data[l]["Card"]["id"], data[l]["Card"]["left_px"], data[l]["Card"]["top_px"], data[l]["Card"]["name"]);
+                    add_note(data[l]["Card"]["id"], data[l]["Card"]["left_px"], data[l]["Card"]["top_px"], data[l]["Card"]["name"], data[l]["Card"]["content"]);
                     console.log(data[l]["Card"]["id"]);
                     l += 1;
                 }
@@ -116,6 +138,7 @@ function loadCards() {
             }
         })
     }
+    input_setting();
 }
 
 function postCards(nameN) {
